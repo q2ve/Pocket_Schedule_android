@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
+
+        <Button
+            android:id="@+id/login_first_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00FFFFFF" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_back_arrow"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/authorization"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#FF000000"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="150dp"
+        android:textSize="18sp"
+        android:text="@string/choose_your_university" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="28dp"
+            android:background="@drawable/textfield_rounded_corners"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:outlineProvider="none"
+            android:paddingStart="15dp"
+            android:paddingTop="16dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="17dp"
+            android:text="Политех"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/login_first_enter_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="#00FFFFFF"/>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_back_arrow"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="18sp"
+        android:text="@string/or" />
+
+    <Button
+        android:id="@+id/login_first_vk_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/textfield_rounded_corners"
+        android:backgroundTint="@color/colorPrimary"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="@string/login_via_VK"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        style="?android:attr/borderlessButtonStyle"/>
+
+</LinearLayout>
