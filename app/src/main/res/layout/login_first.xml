@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -50,37 +51,51 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <EditText
-            android:layout_width="300dp"
+        <TextView
+            android:id="@+id/login_first_university_textview"
+            android:layout_width="308dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp"
             android:layout_marginBottom="28dp"
             android:background="@drawable/textfield_rounded_corners"
             android:ems="10"
-            android:inputType="textEmailAddress"
             android:outlineProvider="none"
             android:paddingStart="15dp"
             android:paddingTop="16dp"
             android:paddingEnd="15dp"
             android:paddingBottom="17dp"
-            android:text="Политех"
             android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/login_first_enter_button"
+        <ImageView
+            android:id="@+id/login_first_university_selector_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:background="#00FFFFFF"/>
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginEnd="24dp"
+            android:layout_alignEnd="@id/login_first_university_textview"
             android:src="@drawable/ic_back_arrow"
-            android:layout_alignParentEnd="true"/>
+            app:tint="@color/colorLightGray1"
+            android:scaleX="1.4"
+            android:scaleY="1.4"
+            android:rotation="270"
+             />
+
+        <ImageButton
+            android:id="@+id/login_first_enter_button"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/textfield_rounded_corners"
+            android:backgroundTint="@color/colorSecondary"
+            android:outlineProvider="none"
+            android:src="@drawable/ic_back_arrow"
+            android:scaleType="fitCenter"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:rotation="180"
+            android:tint="@color/colorBlue" />
 
     </RelativeLayout>
 
@@ -99,7 +114,7 @@
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:background="@drawable/textfield_rounded_corners"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="@color/colorBlue"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         android:text="@string/login_via_VK"

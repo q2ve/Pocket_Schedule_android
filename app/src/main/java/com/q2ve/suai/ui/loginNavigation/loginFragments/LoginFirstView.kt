@@ -5,11 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.q2ve.suai.R
 import kotlinx.android.synthetic.main.login_first.view.*
 
-class LoginFirstView: Fragment() {
+interface LoginScreenFirstViewInterface {
+    fun bindNewUniversityName(name: String)
+}
+
+class LoginFirstView: Fragment(), LoginScreenFirstViewInterface {
 
     lateinit var presenter:LoginScreenFirstPresenterInterface
 
@@ -20,7 +28,7 @@ class LoginFirstView: Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.login_first, container, false)
 
-        val enterButton: Button = rootView.login_first_enter_button
+        val enterButton: ImageButton = rootView.login_first_enter_button
         enterButton.setOnClickListener {enterButtonPressed()}
 
         val vkButton: Button = rootView.login_first_vk_button
@@ -29,7 +37,9 @@ class LoginFirstView: Fragment() {
         val backButton: Button = rootView.login_first_back_button
         backButton.setOnClickListener {backButtonPressed()}
 
-        presenter.viewCreated()
+        val universitySelectorButton: ImageView = rootView.login_first_university_selector_button
+        universitySelectorButton.setOnClickListener {universitySelectorButtonPressed()}
+
         return rootView
     }
 
@@ -38,10 +48,19 @@ class LoginFirstView: Fragment() {
     }
 
     private fun vkButtonPressed () {
-        presenter.vkButtonPressed()
+        presenter.vkButtonPressed(activity as AppCompatActivity)
     }
 
     private fun backButtonPressed () {
         presenter.backButtonPressed()
+    }
+
+    private fun universitySelectorButtonPressed() {
+        presenter.universitySelectorButtonPressed()
+    }
+
+    override fun bindNewUniversityName(name: String) {
+        val universityTextView: TextView = view!!.findViewById(R.id.login_first_university_textview)
+        universityTextView.text = name
     }
 }

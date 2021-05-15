@@ -1,58 +1,56 @@
 package com.q2ve.suai
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import com.github.terrakok.cicerone.Cicerone
-import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.q2ve.suai.ui.RootNavigation
-import com.q2ve.suai.ui.Screens.loginFirst
-import com.q2ve.suai.ui.Screens.loginNavigation
-import com.q2ve.suai.ui.Screens.rootNavigation
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.auth.VKAccessToken
 import com.vk.api.sdk.auth.VKAuthCallback
+import io.realm.Realm
+import io.realm.RealmConfiguration
 
-interface NavigationInterface{
-    fun navigateToLoginFirst(fragment: Fragment)
-    fun navigateToLoginNavigation(fragment: Fragment)
-    fun navigateToRootNavigation(fragment: Fragment)
-    fun newRootScreenRootNavigation(fragment: Fragment)
-}
 
-class MainActivity : AppCompatActivity(), NavigationInterface {
+class MainActivity : AppCompatActivity() {
 
-    private val cicerone = Cicerone.create()
-    private val mainRouter get() = cicerone.router
-    private val mainNavigatorHolder get() = cicerone.getNavigatorHolder()
-    private val mainNavigator = AppNavigator(this, R.id.main_activity_frame)
-
-    private val rootNavigation = RootNavigation(this, this)
+    private val rootNavigation = RootNavigation(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //Realm
+        Realm.init(this)
+        val realmName: String = "SUAI_database"
+        val config = RealmConfiguration.Builder()
+            .name(realmName)
+            .allowQueriesOnUiThread(true)
+            .allowWritesOnUiThread(true)
+            .build()
+        val realm = Realm.getInstance(config)
+
+        //Realm
+
         setContentView(R.layout.main_activity)
-        newRootScreenRootNavigation(rootNavigation)
-        rootNavigation.startFragmentSelect()
-    }
+        this.window.apply {
+            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            statusBarColor = Color.TRANSPARENT
+            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        }
 
-    override fun onResumeFragments() {
-        super.onResumeFragments()
-        mainNavigatorHolder.setNavigator(mainNavigator)
-    }
-
-    override fun onPause() {
-        mainNavigatorHolder.removeNavigator()
-        super.onPause()
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.main_activity_frame, rootNavigation)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val callback = object: VKAuthCallback {
             override fun onLogin(token: VKAccessToken) {
                 Log.d("Tag", token.accessToken)
-
             }
 
             override fun onLoginFailed(errorCode: Int) {
@@ -63,9 +61,4 @@ class MainActivity : AppCompatActivity(), NavigationInterface {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
-
-    override fun navigateToLoginFirst(fragment: Fragment) {mainRouter.navigateTo(loginFirst(fragment))}
-    override fun navigateToRootNavigation(fragment: Fragment) {mainRouter.navigateTo(rootNavigation(fragment))}
-    override fun navigateToLoginNavigation(fragment: Fragment) {mainRouter.navigateTo(loginNavigation(fragment))}
-    override fun newRootScreenRootNavigation(fragment: Fragment) {mainRouter.newRootScreen(rootNavigation(fragment))}
 }

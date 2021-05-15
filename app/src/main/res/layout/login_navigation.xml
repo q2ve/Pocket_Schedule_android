@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    android:id="@+id/login_navigation">
 
     <ImageView
         android:id="@+id/login_background_ellipse"
@@ -20,8 +21,9 @@
 
     <FrameLayout
         android:id="@+id/login_navigation_frame"
+        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </FrameLayout>
 
-</LinearLayout>
+</RelativeLayout>

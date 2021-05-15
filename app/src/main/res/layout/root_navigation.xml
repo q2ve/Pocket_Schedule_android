@@ -5,16 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="240dp"
-        android:textAlignment="center"
-        android:textSize="36sp"
-        android:text="Root Navigation" />
-
-
-
     <FrameLayout
         android:id="@+id/root_navigation_frame"
         android:layout_width="match_parent"
