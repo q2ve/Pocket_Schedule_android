@@ -1,7 +1,6 @@
 package com.q2ve.suai.ui.bottomMenu
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,21 +47,7 @@ class BottomMenuView(private val title: String, private val fragmentReplacer: Na
             .start()
 
         exitButton.setOnClickListener{
-            background.alpha = 0.7f
-            ViewCompat.animate(background)
-                .alpha(0f)
-                .setDuration(300)
-                .setInterpolator(AccelerateInterpolator())
-                .start()
-            ViewCompat.animate(menu)
-                .translationY(3000f)
-                .setDuration(300)
-                .setInterpolator(AccelerateInterpolator())
-                .withEndAction {
-                    background.translationY = 3000f
-                    presenter.exitButtonPressed()
-                }
-                .start()
+            exitAnimation()
         }
 
         val test = RecyclerSelectorView(this)
@@ -73,6 +58,28 @@ class BottomMenuView(private val title: String, private val fragmentReplacer: Na
     }
 
     override fun onRecyclerItemClicked(name: String) {
-        Log.d("TOAST2", name)
+        presenter.onRecyclerItemClicked(name)
+        exitAnimation()
+    }
+
+    private fun exitAnimation() {
+        val background: LinearLayout = view!!.bottom_menu_container_background
+        val menu: LinearLayout = view!!.bottom_menu_container
+
+        background.alpha = 0.7f
+        ViewCompat.animate(background)
+            .alpha(0f)
+            .setDuration(300)
+            .setInterpolator(AccelerateInterpolator())
+            .start()
+        ViewCompat.animate(menu)
+            .translationY(3000f)
+            .setDuration(300)
+            .setInterpolator(AccelerateInterpolator())
+            .withEndAction {
+                background.translationY = 3000f
+                presenter.exitButtonPressed()
+            }
+            .start()
     }
 }

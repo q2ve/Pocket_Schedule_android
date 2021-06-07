@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.login_first.view.*
 
 interface LoginScreenFirstViewInterface {
     fun bindNewUniversityName(name: String)
+    fun makeErrorMessage (cleanFlag: Boolean, stringResource: Int)
 }
 
 class LoginFirstView: Fragment(), LoginScreenFirstViewInterface {
@@ -44,7 +45,8 @@ class LoginFirstView: Fragment(), LoginScreenFirstViewInterface {
     }
 
     private fun enterButtonPressed () {
-        presenter.enterButtonPressed()
+        val universityTextView: TextView = view!!.findViewById(R.id.login_first_university_textview)
+        presenter.enterButtonPressed(universityTextView.text.toString())
     }
 
     private fun vkButtonPressed () {
@@ -62,5 +64,15 @@ class LoginFirstView: Fragment(), LoginScreenFirstViewInterface {
     override fun bindNewUniversityName(name: String) {
         val universityTextView: TextView = view!!.findViewById(R.id.login_first_university_textview)
         universityTextView.text = name
+    }
+
+    override fun makeErrorMessage(cleanFlag: Boolean, stringResource: Int) {
+        val errorTextView = view!!.login_first_error_textview
+        if (cleanFlag) {
+            errorTextView.text = ""
+        }
+        else {
+            errorTextView.text = getString(stringResource)
+        }
     }
 }

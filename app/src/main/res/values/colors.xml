@@ -5,6 +5,7 @@
     <color name="colorLightGray1">#949499</color>
     <color name="colorLightGray2">#BEBEC4</color>
     <color name="colorLightGray3">#EFEFF1</color>
+    <color name="redError">#EA3323</color>
 
     <color name="colorBlue">#4988F4</color>
     <color name="colorPrimaryDark">#3700B3</color>

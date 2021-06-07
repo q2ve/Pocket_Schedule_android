@@ -17,7 +17,7 @@ class LoginSecondPresenter(private val fragmentReplacer: NavigationInterface, pr
 	}
 
 	override fun backButtonPressed() {
-		TODO("Not yet implemented")
+		parent.goToFirstScreen()
 	}
 
 }

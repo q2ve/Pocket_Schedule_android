@@ -9,9 +9,7 @@ import androidx.fragment.app.Fragment
 import com.q2ve.suai.R
 import kotlinx.android.synthetic.main.login_second.view.*
 
-class LoginSecondView: Fragment() {
-
-    lateinit var presenter:LoginScreenSecondPresenterInterface
+class LoginSecondView(private val presenter:LoginScreenSecondPresenterInterface, private val title: String): Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -19,6 +17,9 @@ class LoginSecondView: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.login_second, container, false)
+
+        val titleField = rootView.login_second_university_name
+        titleField.text = title
 
         val loginField = rootView.login_second_login_field
         val passwordField = rootView.login_second_password_field

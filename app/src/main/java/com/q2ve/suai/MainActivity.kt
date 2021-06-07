@@ -11,8 +11,6 @@ import com.q2ve.suai.ui.RootNavigation
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.auth.VKAccessToken
 import com.vk.api.sdk.auth.VKAuthCallback
-import io.realm.Realm
-import io.realm.RealmConfiguration
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //Realm
+        /*//Realm
         Realm.init(this)
         val realmName: String = "SUAI_database"
         val config = RealmConfiguration.Builder()
@@ -32,22 +30,37 @@ class MainActivity : AppCompatActivity() {
             .build()
         val realm = Realm.getInstance(config)
 
-        //Realm
+        realm.executeTransaction { r: Realm ->
+            var example = r.createObject(ExampleObject::class.java, "fuck")
+            example.secondName = "you"
+        }
 
+        realm.executeTransaction { r: Realm ->
+            var example = r.where(ExampleObject::class.java).findFirst()
+            Log.d("TAGGGGGGGGGGGGGGGG", example.toString())
+        }
+
+        //Realm*/
+
+        //View and window setting
         setContentView(R.layout.main_activity)
         this.window.apply {
             addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             statusBarColor = Color.TRANSPARENT
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         }
+        //View and window setting
 
+        //Adding root navigation fragment on the screen
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.main_activity_frame, rootNavigation)
         transaction.addToBackStack(null)
         transaction.commit()
+        //Adding root navigation fragment on the screen
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        //VK
         val callback = object: VKAuthCallback {
             override fun onLogin(token: VKAccessToken) {
                 Log.d("Tag", token.accessToken)
@@ -60,5 +73,6 @@ class MainActivity : AppCompatActivity() {
         if (data == null || !VK.onActivityResult(requestCode, resultCode, data, callback)) {
             super.onActivityResult(requestCode, resultCode, data)
         }
+        //VK
     }
 }
