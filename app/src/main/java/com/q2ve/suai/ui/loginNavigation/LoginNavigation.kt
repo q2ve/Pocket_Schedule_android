@@ -20,6 +20,7 @@ import com.q2ve.suai.ui.loginNavigation.onboarding.OnboardingView
 interface LoginNavigationInterface {
     fun goToFirstScreen(isFromOnboarding: Boolean = false)
     fun goToSecondScreen(title: String)
+    fun changeEllipseProperties(translationX: Float, translationY: Float, rotation: Float)
 }
 
 class LoginNavigation(private val fragmentReplacer: NavigationInterface): Fragment(), LoginNavigationInterface {
@@ -73,5 +74,12 @@ class LoginNavigation(private val fragmentReplacer: NavigationInterface): Fragme
             .setInterpolator(AccelerateDecelerateInterpolator())
             .setDuration(600)
             .start()
+    }
+
+    override fun changeEllipseProperties(translationX: Float, translationY: Float, rotation: Float) {
+        val backgroundEllipse: ImageView = view!!.findViewById(R.id.login_background_ellipse)
+        backgroundEllipse.translationX += translationX
+        backgroundEllipse.translationY += translationY
+        backgroundEllipse.rotation += rotation
     }
 }
