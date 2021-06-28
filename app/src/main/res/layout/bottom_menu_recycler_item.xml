@@ -37,8 +37,8 @@
 
 	<View
 		android:layout_width="match_parent"
-		android:layout_height="3dp"
-		android:background="@drawable/bottom_menu_rounded_corners"
+		android:layout_height="2.5dp"
+		android:background="@drawable/divider_rounded_corners"
 		android:backgroundTint="@color/colorLightGray3"
 		android:layout_marginStart="12dp"
 		android:layout_marginEnd="12dp"/>

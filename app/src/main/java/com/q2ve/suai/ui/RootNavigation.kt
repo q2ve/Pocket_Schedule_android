@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.q2ve.suai.R
-import com.q2ve.suai.interfacesRENAME.FragmentReplacer
-import com.q2ve.suai.interfacesRENAME.NavigationInterface
+import com.q2ve.suai.helpers.FragmentReplacer
+import com.q2ve.suai.helpers.NavigationInterface
 import com.q2ve.suai.ui.coreNavigation.CoreNavigation
 import com.q2ve.suai.ui.loginNavigation.LoginNavigation
 
 class RootNavigation(private val activityLink: FragmentActivity): Fragment() {
 
-    private val fragmentReplacer:NavigationInterface = FragmentReplacer(activityLink)
+    private val fragmentReplacer: NavigationInterface = FragmentReplacer
 
     private val loginNavigation = LoginNavigation(fragmentReplacer)
     private val coreNavigation =  CoreNavigation()

@@ -12,11 +12,11 @@
         android:id="@+id/login_background_ellipse"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:rotation="-60"
+        android:rotation="-65"
         android:scaleX="3"
-        android:scaleY="3"
-        android:translationY="-120dp"
-        android:translationX="80dp"
+        android:scaleY="3.2"
+        android:translationX="170dp"
+        android:translationY="-280dp"
         app:srcCompat="@drawable/bg_ellipse" />
 
     <FrameLayout

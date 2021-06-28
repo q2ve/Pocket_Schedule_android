@@ -8,9 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.q2ve.suai.R
+import com.q2ve.suai.helpers.realm.objects.RealmIdNameInterface
 import kotlinx.android.synthetic.main.bottom_menu_recycler_selector.view.*
 
-class RecyclerSelectorView(private val parent: RecyclerInterface): Fragment()  {
+class RecyclerSelectorView(private val parent: RecyclerInterface, private val inputData: List<RealmIdNameInterface>): Fragment() {
 	override fun onCreateView(
 		inflater: LayoutInflater,
 		container: ViewGroup?,
@@ -21,14 +22,16 @@ class RecyclerSelectorView(private val parent: RecyclerInterface): Fragment()  {
 		val recyclerView: RecyclerView = rootView.recycler_recyclerView
 		recyclerView.layoutManager = LinearLayoutManager(activity)
 
-		val dummy: List<String> = listOf("Институт Теплых Мужских Отношений", "Лоликек", "Бонч", "ЦПШ", "Хуй", "Хуй", "Хуй", "Хуй", "Хуй", "Хуй", "Хуй", "Хуй", "Хуй", "Хуй", "Хуй", "Хуй", "Хуй", "Хуй", "Хуй")
+		//val dummy: List<String> = listOf("Институт Теплых Мужских Отношений", "Лоликек", "Бонч", "ЦПШ", "Хуй", "Хуй", "Хуй", "Хуй",
+		//	"Хуй", "Хуй", "Хуй", "Хуй", "Хуй", "Хуй", "Хуй", "Хуй", "Хуй", "Хуй", "Хуй Последний!")
 
-		recyclerView.adapter = RecyclerSelectorAdapter(dummy, parent)
-
-
-
-
+		recyclerView.adapter = RecyclerSelectorAdapter(inputData, parent)
+		//recyclerView.adapter = RecyclerSelectorAdapter(dummy, parent)
 
 		return rootView
+	}
+
+	override fun onDestroy() {
+		super.onDestroy()
 	}
 }

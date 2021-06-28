@@ -7,10 +7,12 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.q2ve.suai.helpers.FragmentReplacer
 import com.q2ve.suai.ui.RootNavigation
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.auth.VKAccessToken
 import com.vk.api.sdk.auth.VKAuthCallback
+import io.realm.Realm
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,34 +22,21 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        /*//Realm
+        //Setting link to activity in fragment replacer
+        FragmentReplacer.activityLink = this
+        //Setting link to activity in fragment replacer
+
+        //Realm
         Realm.init(this)
-        val realmName: String = "SUAI_database"
-        val config = RealmConfiguration.Builder()
-            .name(realmName)
-            .allowQueriesOnUiThread(true)
-            .allowWritesOnUiThread(true)
-            .build()
-        val realm = Realm.getInstance(config)
-
-        realm.executeTransaction { r: Realm ->
-            var example = r.createObject(ExampleObject::class.java, "fuck")
-            example.secondName = "you"
-        }
-
-        realm.executeTransaction { r: Realm ->
-            var example = r.where(ExampleObject::class.java).findFirst()
-            Log.d("TAGGGGGGGGGGGGGGGG", example.toString())
-        }
-
-        //Realm*/
+        //Realm
 
         //View and window setting
         setContentView(R.layout.main_activity)
         this.window.apply {
             addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             statusBarColor = Color.TRANSPARENT
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or
+                                           View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         }
         //View and window setting
 

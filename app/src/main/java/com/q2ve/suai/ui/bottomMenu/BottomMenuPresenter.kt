@@ -1,21 +1,21 @@
 package com.q2ve.suai.ui.bottomMenu
 
+/**
+ * Created by Denis Shishkin on 16.04.2021.
+ * qwq2eq@gmail.com
+ */
+
 import androidx.fragment.app.Fragment
-import com.q2ve.suai.interfacesRENAME.NavigationInterface
-import com.q2ve.suai.ui.bottomMenu.selector.BottomMenuInterface
+import com.q2ve.suai.helpers.NavigationInterface
 
-interface BottomMenuPresenterInterface {
-	fun exitButtonPressed()
-	fun onRecyclerItemClicked(name: String)
-}
+class BottomMenuPresenter(
+	private val fragmentReplacer: NavigationInterface,
+	private val view: Fragment,
+	private val parent: BottomMenuInterface
+	): BottomMenuPresenterInterface {
 
-class BottomMenuPresenter(private val fragmentReplacer: NavigationInterface, private val view: Fragment, private val parent: BottomMenuInterface): BottomMenuPresenterInterface {
-
-	override fun exitButtonPressed() {
+	override fun exitBottomMenu() {
+		parent.bottomMenuClosed()
 		fragmentReplacer.removeFragment(view)
-	}
-
-	override fun onRecyclerItemClicked(name: String) {
-		parent.onBottomMenuResponse(name)
 	}
 }

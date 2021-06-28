@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">SUAI</string>
-    <string name="server_url_api">http://151.248.125.28:8080/api/v1/</string>
+    <string name="server_url_api">https://Restfulapi.ru/api/v1/</string>
     <integer name="com_vk_sdk_AppId">7810833</integer>
 
     <string name="authorization">Авторизация</string>

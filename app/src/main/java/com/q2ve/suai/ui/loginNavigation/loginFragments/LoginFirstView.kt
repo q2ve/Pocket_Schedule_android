@@ -39,7 +39,10 @@ class LoginFirstView: Fragment(), LoginScreenFirstViewInterface {
         backButton.setOnClickListener {backButtonPressed()}
 
         val universitySelectorButton: ImageView = rootView.login_first_university_selector_button
-        universitySelectorButton.setOnClickListener {universitySelectorButtonPressed()}
+        universitySelectorButton.setOnClickListener {universitySelectorPressed()}
+
+        val universityTextView: TextView = rootView.login_first_university_textview
+        universityTextView.setOnClickListener {universitySelectorPressed()}
 
         return rootView
     }
@@ -57,8 +60,8 @@ class LoginFirstView: Fragment(), LoginScreenFirstViewInterface {
         presenter.backButtonPressed()
     }
 
-    private fun universitySelectorButtonPressed() {
-        presenter.universitySelectorButtonPressed()
+    private fun universitySelectorPressed() {
+        presenter.universitySelectorPressed()
     }
 
     override fun bindNewUniversityName(name: String) {

@@ -1,5 +1,10 @@
 package com.q2ve.suai.ui.loginNavigation.onboarding
 
+/**
+ * Created by Denis Shishkin on 07.06.2021.
+ * qwq2eq@gmail.com
+ */
+
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.q2ve.suai.R
@@ -10,9 +15,9 @@ class OnboardingPagerAdapter (fragment: Fragment, val loginNavigation: LoginNavi
 
 	override fun createFragment(position: Int): Fragment {
 
-		var fragment: OnboardingFragment = when (position) {
+		return when (position) {
 			0 -> {
-				OnboardingFragment(R.layout.login_onboarding_1, loginNavigation)
+				OnboardingFragment(R.layout.login_onboarding_1, loginNavigation, true)
 			}
 			1 -> {
 				OnboardingFragment(R.layout.login_onboarding_2, loginNavigation)
@@ -30,8 +35,6 @@ class OnboardingPagerAdapter (fragment: Fragment, val loginNavigation: LoginNavi
 				OnboardingFragment(R.layout.login_onboarding_1, loginNavigation)
 			}
 		}
-
-		return fragment
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.q2ve.suai.interfacesRENAME
+package com.q2ve.suai.helpers
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -14,7 +14,9 @@ enum class ReplaceAnimation {
 	None, LtR_slide, RtL_slide
 }
 
-class FragmentReplacer(private val activityLink: FragmentActivity): Fragment(), NavigationInterface {
+object FragmentReplacer: Fragment(), NavigationInterface {
+
+	lateinit var activityLink: FragmentActivity
 
 	override fun replaceFragment(fragmentContainer: Int, fragment: Fragment, animation: ReplaceAnimation) {
 		val fragmentManager = activityLink.supportFragmentManager

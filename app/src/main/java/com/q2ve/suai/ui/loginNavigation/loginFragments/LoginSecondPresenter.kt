@@ -1,6 +1,6 @@
 package com.q2ve.suai.ui.loginNavigation.loginFragments
 
-import com.q2ve.suai.interfacesRENAME.NavigationInterface
+import com.q2ve.suai.helpers.NavigationInterface
 import com.q2ve.suai.ui.loginNavigation.LoginNavigationInterface
 
 interface LoginScreenSecondPresenterInterface {
