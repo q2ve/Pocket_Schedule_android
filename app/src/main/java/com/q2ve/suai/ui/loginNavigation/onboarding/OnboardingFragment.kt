@@ -26,7 +26,7 @@ class OnboardingFragment (val layout: Int, val loginNavigation: LoginNavigationI
 
 			val noAuthoriseButton: Button = rootView.findViewById(R.id.login_onboarding_no_authorize_button)
 			noAuthoriseButton.setOnClickListener{
-
+				loginNavigation.goToCoreFragments()
 			}
 		}
 

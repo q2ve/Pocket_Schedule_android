@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/colorPlaqueBackground"
     android:id="@+id/login_navigation">
 
     <ImageView
@@ -21,9 +21,9 @@
 
     <FrameLayout
         android:id="@+id/login_navigation_frame"
-        android:fitsSystemWindows="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="?android:attr/actionBarSize">
     </FrameLayout>
 
 </RelativeLayout>

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.q2ve.suai.R
 import com.q2ve.suai.helpers.realm.objects.RealmIdNameInterface
-import kotlinx.android.synthetic.main.bottom_menu_recycler_selector.view.*
+import kotlinx.android.synthetic.main.recycler_view_selector.view.*
 
 class RecyclerSelectorView(private val parent: RecyclerInterface, private val inputData: List<RealmIdNameInterface>): Fragment() {
 	override fun onCreateView(
@@ -17,7 +17,7 @@ class RecyclerSelectorView(private val parent: RecyclerInterface, private val in
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
-		val rootView = inflater.inflate(R.layout.bottom_menu_recycler_selector, container, false)
+		val rootView = inflater.inflate(R.layout.recycler_view_selector, container, false)
 
 		val recyclerView: RecyclerView = rootView.recycler_recyclerView
 		recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -29,9 +29,5 @@ class RecyclerSelectorView(private val parent: RecyclerInterface, private val in
 		//recyclerView.adapter = RecyclerSelectorAdapter(dummy, parent)
 
 		return rootView
-	}
-
-	override fun onDestroy() {
-		super.onDestroy()
 	}
 }

@@ -11,6 +11,6 @@
 		android:id="@+id/recycler_recyclerView"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		tools:listitem="@layout/bottom_menu_recycler_item"/>
+		tools:listitem="@layout/recycler_view_item"/>
 
 </LinearLayout>

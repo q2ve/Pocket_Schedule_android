@@ -4,21 +4,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.q2ve.suai.R
 
-interface NavigationInterface {
-	fun replaceFragment (fragmentContainer: Int, fragment: Fragment, animation: ReplaceAnimation = ReplaceAnimation.None)
-	fun addFragment (fragmentContainer: Int, fragment: Fragment)
-	fun removeFragment (fragment: Fragment)
-}
-
 enum class ReplaceAnimation {
 	None, LtR_slide, RtL_slide
 }
 
-object FragmentReplacer: Fragment(), NavigationInterface {
+object FragmentReplacer: Fragment() {
 
 	lateinit var activityLink: FragmentActivity
 
-	override fun replaceFragment(fragmentContainer: Int, fragment: Fragment, animation: ReplaceAnimation) {
+	fun replaceFragment(fragmentContainer: Int, fragment: Fragment, animation: ReplaceAnimation = ReplaceAnimation.None) {
 		val fragmentManager = activityLink.supportFragmentManager
 		val transaction = fragmentManager.beginTransaction()
 		when (animation) {
@@ -37,14 +31,14 @@ object FragmentReplacer: Fragment(), NavigationInterface {
 		transaction.commit()
 	}
 
-	override fun addFragment(fragmentContainer: Int, fragment: Fragment) {
+	fun addFragment(fragmentContainer: Int, fragment: Fragment) {
 		val fragmentManager = activityLink.supportFragmentManager
 		val transaction = fragmentManager.beginTransaction()
 		transaction.add(fragmentContainer, fragment)
 		transaction.addToBackStack(null)
 		transaction.commit()
 	}
-	override fun removeFragment(fragment: Fragment) {
+	fun removeFragment(fragment: Fragment) {
 		val fragmentManager = activityLink.supportFragmentManager
 		val transaction = fragmentManager.beginTransaction()
 		transaction.remove(fragment)

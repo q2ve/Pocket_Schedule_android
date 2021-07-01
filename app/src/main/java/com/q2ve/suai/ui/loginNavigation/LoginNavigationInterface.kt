@@ -9,4 +9,5 @@ interface LoginNavigationInterface {
 	fun goToFirstScreen(isFromOnboarding: Boolean = false)
 	fun goToSecondScreen(title: String)
 	fun changeEllipseProperties(translationX: Float, translationY: Float, rotation: Float)
+	fun goToCoreFragments()
 }

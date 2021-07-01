@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorBackgroundWhite">#F4F4F6</color>
+    <color name="colorPlaque">#F4F4F6</color>
+    <color name="colorPlaqueBackground">#FFFFFF</color>
+    <color name="colorPlaqueShadow">#17000000</color>
     <color name="colorSecondary">#DDE9FF</color>
     <color name="colorLightGray1">#949499</color>
     <color name="colorLightGray2">#BEBEC4</color>
     <color name="colorLightGray3">#EFEFF1</color>
-    <color name="redError">#EA3323</color>
-
+    <color name="colorModuleGreyFill">#F1F1F1</color>
+    <color name="colorRedError">#EA3323</color>
+    <color name="colorBlack">#121212</color>
     <color name="colorBlue">#4988F4</color>
+    <color name="colorAqua">#60BCFF</color>
+
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#A5A5A5</color>
 </resources>

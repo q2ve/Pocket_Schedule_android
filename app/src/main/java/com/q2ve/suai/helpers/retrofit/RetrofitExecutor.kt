@@ -55,4 +55,9 @@ class RetrofitExecutor (val parent: RetrofitInterface) {
 		val call = request.getUniversities(0, 8)
 		sendCall(call)
 	}
+
+	fun getLessons(scheduleUserId: String) {
+		val request = setupRequest()
+		sendCall(request.getLessons(scheduleUserId))
+	}
 }

@@ -15,19 +15,20 @@ import android.widget.ImageView
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import com.q2ve.suai.R
-import com.q2ve.suai.helpers.NavigationInterface
+import com.q2ve.suai.helpers.FragmentReplacer
 import com.q2ve.suai.helpers.ReplaceAnimation
+import com.q2ve.suai.ui.RootNavigationInterface
 import com.q2ve.suai.ui.loginNavigation.loginFragments.LoginFirstPresenter
 import com.q2ve.suai.ui.loginNavigation.loginFragments.LoginFirstView
 import com.q2ve.suai.ui.loginNavigation.loginFragments.LoginSecondPresenter
 import com.q2ve.suai.ui.loginNavigation.loginFragments.LoginSecondView
 import com.q2ve.suai.ui.loginNavigation.onboarding.OnboardingView
 
-class LoginNavigation(private val fragmentReplacer: NavigationInterface): Fragment(), LoginNavigationInterface {
+class LoginNavigation(private val rootNavigation: RootNavigationInterface): Fragment(), LoginNavigationInterface {
 
-    private val loginFirstPresenter = LoginFirstPresenter(fragmentReplacer, this)
+    private val loginFirstPresenter = LoginFirstPresenter(this)
     private val loginFirstView = LoginFirstView()
-    private val loginSecondPresenter = LoginSecondPresenter(fragmentReplacer, this)
+    private val loginSecondPresenter = LoginSecondPresenter(this)
 
     init {
         loginFirstView.presenter = loginFirstPresenter
@@ -42,14 +43,14 @@ class LoginNavigation(private val fragmentReplacer: NavigationInterface): Fragme
         val rootView = inflater.inflate(R.layout.login_navigation, container, false)
 
         //fragmentReplacer.replaceFragment(R.id.login_navigation_frame, loginFirstView)
-        fragmentReplacer.replaceFragment(R.id.login_navigation_frame, OnboardingView(this))
+        FragmentReplacer.replaceFragment(R.id.login_navigation_frame, OnboardingView(this))
 
         return rootView
     }
 
     override fun goToFirstScreen(isFromOnboarding: Boolean) {
         if (isFromOnboarding) {
-            fragmentReplacer.replaceFragment(R.id.login_navigation_frame, loginFirstView, ReplaceAnimation.RtL_slide)
+            FragmentReplacer.replaceFragment(R.id.login_navigation_frame, loginFirstView, ReplaceAnimation.RtL_slide)
 
             val backgroundEllipse: ImageView = view!!.findViewById(R.id.login_background_ellipse)
             //val ellipseRotation = backgroundEllipse.rotation+20
@@ -61,7 +62,7 @@ class LoginNavigation(private val fragmentReplacer: NavigationInterface): Fragme
                 .setDuration(320)
                 .start()
         } else {
-            fragmentReplacer.replaceFragment(R.id.login_navigation_frame, loginFirstView, ReplaceAnimation.LtR_slide)
+            FragmentReplacer.replaceFragment(R.id.login_navigation_frame, loginFirstView, ReplaceAnimation.LtR_slide)
 
             val backgroundEllipse: ImageView = view!!.findViewById(R.id.login_background_ellipse)
             val ellipseRotation = backgroundEllipse.rotation+10
@@ -77,7 +78,7 @@ class LoginNavigation(private val fragmentReplacer: NavigationInterface): Fragme
 
     override fun goToSecondScreen(title: String) {
         val loginSecondView = LoginSecondView(loginSecondPresenter, title)
-        fragmentReplacer.replaceFragment(R.id.login_navigation_frame, loginSecondView, ReplaceAnimation.RtL_slide)
+        FragmentReplacer.replaceFragment(R.id.login_navigation_frame, loginSecondView, ReplaceAnimation.RtL_slide)
 
         val backgroundEllipse: ImageView = view!!.findViewById(R.id.login_background_ellipse)
         val ellipseRotation = backgroundEllipse.rotation-10
@@ -95,5 +96,9 @@ class LoginNavigation(private val fragmentReplacer: NavigationInterface): Fragme
         backgroundEllipse.translationX = (translationX * resources.displayMetrics.density)
         backgroundEllipse.translationY = (translationY * resources.displayMetrics.density)
         backgroundEllipse.rotation = rotation
+    }
+
+    override fun goToCoreFragments() {
+        rootNavigation.goToCoreFragments()
     }
 }

@@ -3,7 +3,7 @@ package com.q2ve.suai.ui.loginNavigation.loginFragments
 import android.app.Activity
 import androidx.fragment.app.Fragment
 import com.q2ve.suai.R
-import com.q2ve.suai.helpers.NavigationInterface
+import com.q2ve.suai.helpers.FragmentReplacer
 import com.q2ve.suai.helpers.contentGetter.ContentGetter
 import com.q2ve.suai.helpers.contentGetter.ContentGetterInterface
 import com.q2ve.suai.helpers.realm.objects.RealmIdNameInterface
@@ -23,10 +23,8 @@ interface LoginScreenFirstPresenterInterface {
     fun universitySelectorPressed()
 }
 
-class LoginFirstPresenter(
-    private val fragmentReplacer: NavigationInterface,
-    private val parent: LoginNavigationInterface
-):  Fragment(),
+class LoginFirstPresenter(private val parent: LoginNavigationInterface):
+    Fragment(),
     LoginScreenFirstPresenterInterface,
     ContentGetterInterface,
     RecyclerInterface,
@@ -35,7 +33,7 @@ class LoginFirstPresenter(
 
     lateinit var view: LoginScreenFirstViewInterface
     private val bottomMenuView = BottomMenuView("Выбор хуйни")
-    private val bottomMenuPresenter = BottomMenuPresenter(fragmentReplacer, bottomMenuView, this)
+    private val bottomMenuPresenter = BottomMenuPresenter(bottomMenuView, this)
     private var universityList: List<RealmIdNameInterface>? = null
     private var isBottomMenuOpened = false
 
@@ -49,7 +47,7 @@ class LoginFirstPresenter(
 
     private fun placeRecycler () {
         val recycler = RecyclerSelectorView(this, universityList!!)
-        fragmentReplacer.addFragment(R.id.bottom_menu_recycler_container, recycler)
+        FragmentReplacer.addFragment(R.id.bottom_menu_recycler_container, recycler)
     }
 
     override fun enterButtonPressed(universityName: String) {
@@ -72,7 +70,7 @@ class LoginFirstPresenter(
 
     override fun universitySelectorPressed() {
         bottomMenuView.presenter = bottomMenuPresenter
-        fragmentReplacer.addFragment(R.id.login_navigation, bottomMenuView)
+        FragmentReplacer.addFragment(R.id.login_navigation, bottomMenuView)
         isBottomMenuOpened = true
 
         if (universityList !== null) {

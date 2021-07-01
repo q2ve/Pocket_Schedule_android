@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.q2ve.suai.R
 
-class DeadlinesView: Fragment() {
+class DeadlinesView(private val presenter: DeadlinesPresenterInterface): Fragment(), DeadlinesViewInterface {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.core_deadlines, container, false)
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return rootView
     }
 
 }

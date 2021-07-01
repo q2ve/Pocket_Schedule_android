@@ -7,6 +7,7 @@ import com.q2ve.suai.helpers.realm.objects.IndexerItem
 import com.q2ve.suai.helpers.realm.objects.IndexerItemType
 import com.q2ve.suai.helpers.retrofit.RetrofitExecutor
 import com.q2ve.suai.helpers.retrofit.RetrofitInterface
+import com.q2ve.suai.helpers.retrofit.objects.RetrofitItemLesson
 import com.q2ve.suai.helpers.retrofit.objects.RetrofitItemScheduleUser
 import com.q2ve.suai.helpers.retrofit.objects.RetrofitItemUniversity
 
@@ -28,30 +29,41 @@ class ContentGetter(private val parent: ContentGetterInterface): RetrofitInterfa
 		RetrofitExecutor(this).getUniversities()
 	}
 
+	fun getLessons(scheduleUserId: String) {
+		contentType = ContentType.Lessons
+		RetrofitExecutor(this).getLessons(scheduleUserId)
+	}
+
 	override fun <T> retrofitCallback(data: List<T>, isError: Boolean, t: Throwable?) {
 		if (isError) {
 			TODO("Обработчик ошибок ретрофита")
 		} else {
 			when (contentType) {
 				ContentType.Groups -> {
-					RealmIO().insertOrUpdate(
+					RealmIO().insertOrUpdateWithIndexer(
 						this,
 						IndexerItemType.Groups,
 						RealmObjectConverter().convertScheduleUsersToRealm(data as List<RetrofitItemScheduleUser>)
 					)
 				}
 				ContentType.Professors -> {
-					RealmIO().insertOrUpdate(
+					RealmIO().insertOrUpdateWithIndexer(
 						this,
 						IndexerItemType.Professors,
 						RealmObjectConverter().convertScheduleUsersToRealm(data as List<RetrofitItemScheduleUser>)
 					)
 				}
 				ContentType.Universities -> {
-					RealmIO().insertOrUpdate(
+					RealmIO().insertOrUpdateWithIndexer(
 						this,
 						IndexerItemType.Universities,
 						RealmObjectConverter().convertUniversitiesToRealm(data as List<RetrofitItemUniversity>)
+					)
+				}
+				ContentType.Lessons -> {
+					RealmIO().insertOrUpdate(
+						this,
+						RealmObjectConverter().convertLessonsToRealm(data as List<RetrofitItemLesson>)
 					)
 				}
 			}

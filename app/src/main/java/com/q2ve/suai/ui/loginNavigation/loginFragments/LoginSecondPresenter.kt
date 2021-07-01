@@ -1,6 +1,5 @@
 package com.q2ve.suai.ui.loginNavigation.loginFragments
 
-import com.q2ve.suai.helpers.NavigationInterface
 import com.q2ve.suai.ui.loginNavigation.LoginNavigationInterface
 
 interface LoginScreenSecondPresenterInterface {
@@ -9,7 +8,7 @@ interface LoginScreenSecondPresenterInterface {
 	fun backButtonPressed()
 }
 
-class LoginSecondPresenter(private val fragmentReplacer: NavigationInterface, private val parent: LoginNavigationInterface): LoginScreenSecondPresenterInterface {
+class LoginSecondPresenter(private val parent: LoginNavigationInterface): LoginScreenSecondPresenterInterface {
 	override fun viewCreated() {}
 
 	override fun enterButtonPressed(login: String, password: String) {

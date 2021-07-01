@@ -15,7 +15,7 @@ class RecyclerSelectorAdapter(private val objects: List<RealmIdNameInterface>, p
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerItemHolder {
-		val itemView = LayoutInflater.from(parent.context).inflate(R.layout.bottom_menu_recycler_item, parent, false)
+		val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_item, parent, false)
 		return RecyclerItemHolder(itemView)
 	}
 

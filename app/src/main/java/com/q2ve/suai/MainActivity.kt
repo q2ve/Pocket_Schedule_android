@@ -17,7 +17,7 @@ import io.realm.Realm
 
 class MainActivity : AppCompatActivity() {
 
-    private val rootNavigation = RootNavigation(this)
+    private val rootNavigation = RootNavigation()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,5 +63,10 @@ class MainActivity : AppCompatActivity() {
             super.onActivityResult(requestCode, resultCode, data)
         }
         //VK
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        //Toast.makeText(applicationContext, "Пошел нахуй!", Toast.LENGTH_SHORT).show()
     }
 }

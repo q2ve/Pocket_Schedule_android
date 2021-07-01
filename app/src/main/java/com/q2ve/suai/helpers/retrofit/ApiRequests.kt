@@ -1,5 +1,6 @@
 package com.q2ve.suai.helpers.retrofit
 
+import com.q2ve.suai.helpers.retrofit.objects.RetrofitItemLesson
 import com.q2ve.suai.helpers.retrofit.objects.RetrofitItemScheduleUser
 import com.q2ve.suai.helpers.retrofit.objects.RetrofitItemUniversity
 import com.q2ve.suai.helpers.retrofit.objects.RetrofitResponseObject
@@ -11,7 +12,7 @@ import retrofit2.http.Query
 
 interface ApiRequests {
 	@GET("objects/groups?")
-	fun getGroups(
+	fun getGroups (
 		@Query("offset") offset: Int,
 		@Query("limit") limit: Int,
 		@Query("universityId") universityId: Int,
@@ -19,15 +20,20 @@ interface ApiRequests {
 	): Call<RetrofitResponseObject<RetrofitItemScheduleUser>>
 
 	@GET("objects/universities?")
-	fun getUniversities(
+	fun getUniversities (
 		@Query("offset") offset: Int,
 		@Query("limit") limit: Int,
 		@Query("q") q: String = ""
 	): Call<RetrofitResponseObject<RetrofitItemUniversity>>
 
+	@GET("objects/lessons?")
+	fun getLessons (
+		@Query("scheduleUserId") scheduleUserId: String
+	): Call<RetrofitResponseObject<RetrofitItemLesson>>
+
 	@POST("auth/service1")
-	fun postUser(@Body login: String, password: String)
+	fun postUser (@Body login: String, password: String)
 
 	@POST("auth/vk")
-	fun postVkUser(@Body token: String)
+	fun postVkUser (@Body token: String)
 }

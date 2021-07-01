@@ -6,5 +6,5 @@ package com.q2ve.suai.helpers.contentGetter
  */
 
 enum class ContentType {
-	Groups, Professors, Universities;
+	Groups, Professors, Universities, Lessons;
 }

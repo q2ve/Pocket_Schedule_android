@@ -1,8 +1,12 @@
 package com.q2ve.suai.helpers.realm
 
+import com.q2ve.suai.helpers.realm.objects.RealmLessonObject
 import com.q2ve.suai.helpers.realm.objects.RealmScheduleUserObject
+import com.q2ve.suai.helpers.realm.objects.RealmSubjectObject
 import com.q2ve.suai.helpers.realm.objects.RealmUniversityObject
+import com.q2ve.suai.helpers.retrofit.objects.RetrofitItemLesson
 import com.q2ve.suai.helpers.retrofit.objects.RetrofitItemScheduleUser
+import com.q2ve.suai.helpers.retrofit.objects.RetrofitItemSubject
 import com.q2ve.suai.helpers.retrofit.objects.RetrofitItemUniversity
 
 /**
@@ -34,5 +38,43 @@ class RealmObjectConverter {
 			output += realmObject
 		}
 		return output
+	}
+
+	fun convertLessonsToRealm (input: List<RetrofitItemLesson>): List<RealmLessonObject> {
+		var output: List<RealmLessonObject> = emptyList()
+		input.forEach {
+			val realmObject = RealmLessonObject()
+			realmObject._id = it._id
+			realmObject.startTime = it.startTime
+			realmObject.endTime = it.endTime
+			realmObject.lessonNum = it.lessonNum
+			realmObject.day = it.day
+			realmObject.rooms = it.rooms
+			realmObject.type = it.type
+			realmObject.week = it.week
+			realmObject.tags = it.tags
+			if(it.groups == null) {
+				realmObject.groups = null
+			} else {
+				realmObject.groups = convertScheduleUsersToRealm(it.groups)
+			}
+			if(it.professors == null) {
+				realmObject.professors = null
+			} else {
+				realmObject.professors = convertScheduleUsersToRealm(it.professors)
+			}
+			realmObject.subject = convertSubjectToRealm(it.subject)
+
+			output += realmObject
+		}
+		return output
+	}
+
+	fun convertSubjectToRealm (input: RetrofitItemSubject): RealmSubjectObject {
+		val realmObject = RealmSubjectObject()
+		realmObject._id = input._id
+		realmObject.name = input.name
+		realmObject.deadlines = null
+		return realmObject
 	}
 }

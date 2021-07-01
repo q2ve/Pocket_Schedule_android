@@ -42,7 +42,7 @@ class RealmIO {
 	}
 
 	//This function is needed to index and add items we got from the server to the local database
-	fun <T: RealmObject> insertOrUpdate(
+	fun <T: RealmObject> insertOrUpdateWithIndexer(
 		parent: RealmInterface,
 		type: IndexerItemType,
 		inputObjects: List<T>)
@@ -81,9 +81,9 @@ class RealmIO {
 				}
 				//Sorting objects from DB with indexer items (also from DB)
 				val indexerSortedList = r.where(IndexerItem::class.java)
-										.equalTo("name", name)
-										.sort("index", Sort.ASCENDING)
-										.findAll()
+					.equalTo("name", name)
+					.sort("index", Sort.ASCENDING)
+					.findAll()
 				indexerSortedList.forEach { it ->
 					val properties = IndexerItem::class.members
 					val property = properties.find { it.name == type.getField() }
@@ -92,6 +92,28 @@ class RealmIO {
 					}
 				}
 				//Copying objects from DB. Now they're not related to DB
+				output = r.copyFromRealm(output)
+				Log.d("Realm indexer output", output.toString())
+			}, {
+				parent.realmCallback(output)
+				Log.d("Indexer insertOrUpdate", "Successful")
+			}, {
+				parent.realmCallback(isError = true, throwable = it)
+				Log.e("Indexer insertOrUpdate", it.toString())
+			}
+		)
+		realm.close()
+	}
+
+	fun <T: RealmObject> insertOrUpdate(parent: RealmInterface, inputObjects: List<T>) {
+		val realm = Realm.getInstance(config)
+		var output: List<T> = emptyList()
+		realm.executeTransactionAsync(
+			{ r: Realm ->
+				inputObjects.forEach { it ->
+					val outputObject = r.copyToRealmOrUpdate(it)
+					output += outputObject
+				}
 				output = r.copyFromRealm(output)
 				Log.d("Realm output", output.toString())
 			}, {

@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.q2ve.suai.R
 
-class SettingsView: Fragment() {
+class SettingsView(private val presenter: SettingsPresenterInterface): Fragment(), SettingsViewInterface {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.settings_menu, container, false)
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return rootView
     }
 }
