@@ -2,11 +2,15 @@ package com.q2ve.suai
 
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.microsoft.appcenter.AppCenter
+import com.microsoft.appcenter.analytics.Analytics
+import com.microsoft.appcenter.crashes.Crashes
 import com.q2ve.suai.helpers.FragmentReplacer
 import com.q2ve.suai.ui.RootNavigation
 import com.vk.api.sdk.VK
@@ -21,6 +25,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        AppCenter.start(
+            application, Constants.appCenterId,
+            Analytics::class.java, Crashes::class.java
+        )
 
         //Setting link to activity in fragment replacer
         FragmentReplacer.activityLink = this
@@ -46,7 +55,10 @@ class MainActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
         //Adding root navigation fragment on the screen
+
+        Analytics.trackEvent("started")
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         //VK
