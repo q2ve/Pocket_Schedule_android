@@ -24,6 +24,27 @@ class ScheduleView (private val presenter: SchedulePresenterInterface): Fragment
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.core_schedule, container, false)
+        var currentGroupTEST = 0
+        rootView.core_schedule_action_bar.setOnClickListener {
+            currentGroupTEST = when (currentGroupTEST) {
+                0 -> {
+                    presenter.test("70aa5c2396487bbed16664156e0edb104466e500d7420b1a17eab4bf52e4f12b")
+                    1
+                }
+                1 -> {
+                    presenter.test("d7444145d626b44c7d8306401014b75389a09679188b62320e957df0f5adf84d")
+                    2
+                }
+                2 -> {
+                    presenter.test("dd5c133522c5c6fe29b6e1a74a384755534c453ece307b755a941c9df26ac091")
+                    3
+                }
+                else -> {
+                    presenter.test("1e0e30726e7f72a88c70ec82e7b5d97844cf3763c068d37a537a11d3a02b93e3")
+                    0
+                }
+            }
+        }
         return rootView
     }
 

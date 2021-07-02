@@ -14,7 +14,11 @@ class SchedulePresenter: SchedulePresenterInterface, ContentGetterInterface {
 	lateinit var lessons: List<RealmLessonObject>
 
 	init {
-		ContentGetter(this).getLessons("1e0e30726e7f72a88c70ec82e7b5d97844cf3763c068d37a537a11d3a02b93e3")
+		test("1e0e30726e7f72a88c70ec82e7b5d97844cf3763c068d37a537a11d3a02b93e3")
+	}
+
+	override fun test(id: String) {
+		ContentGetter(this).getLessons(id)
 	}
 
 	fun updateLessons(objects: List<RealmLessonObject>) {
