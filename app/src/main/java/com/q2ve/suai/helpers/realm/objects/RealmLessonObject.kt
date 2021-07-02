@@ -1,5 +1,6 @@
 package com.q2ve.suai.helpers.realm.objects
 
+import io.realm.RealmList
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 
@@ -19,7 +20,7 @@ open class RealmLessonObject(
 	var type: String? = null,
 	var week: String? = null,
 	var tags: String? = null,
-	var groups: List<RealmScheduleUserObject>? = null,
-	var professors: List<RealmScheduleUserObject>? = null,
+	var groups: RealmList<RealmScheduleUserObject>? = RealmList(),
+	var professors: RealmList<RealmScheduleUserObject>? = RealmList(),
 	var subject: RealmSubjectObject? = null
 ): RealmObject()

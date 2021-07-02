@@ -56,12 +56,16 @@ class RealmObjectConverter {
 			if(it.groups == null) {
 				realmObject.groups = null
 			} else {
-				realmObject.groups = convertScheduleUsersToRealm(it.groups)
+				convertScheduleUsersToRealm(it.groups).forEach { item ->
+					realmObject.groups!!.add(item)
+				}
 			}
 			if(it.professors == null) {
 				realmObject.professors = null
 			} else {
-				realmObject.professors = convertScheduleUsersToRealm(it.professors)
+				convertScheduleUsersToRealm(it.professors).forEach { item ->
+					realmObject.professors!!.add(item)
+				}
 			}
 			realmObject.subject = convertSubjectToRealm(it.subject)
 

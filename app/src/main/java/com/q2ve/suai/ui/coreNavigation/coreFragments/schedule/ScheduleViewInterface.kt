@@ -6,4 +6,6 @@ package com.q2ve.suai.ui.coreNavigation.coreFragments.schedule
  */
 
 interface ScheduleViewInterface {
+	fun changeTitle (title: String)
+	fun replaceScheduleDay(lessons: Array<ScheduleLessonData>)
 }
