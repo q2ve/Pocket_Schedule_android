@@ -1,5 +1,9 @@
 package com.q2ve.suai.helpers.realm.objects
 
+import com.q2ve.suai.helpers.realm.ImportableObject
+import com.q2ve.suai.helpers.realm.importObject
+import com.q2ve.suai.helpers.retrofit.objects.RetrofitItemDeadline
+import io.realm.Realm
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 
@@ -22,4 +26,11 @@ open class RealmDeadlineObject (
 	var curPoints: Int = 0,
 	var markpoint: Int = 0,
 	var reportRequired: Boolean = false
-): RealmObject()
+): RealmObject(), ImportableObject<RetrofitItemDeadline> {
+	override fun setup(source: RetrofitItemDeadline, inTransaction: Realm) {
+		_id = source._id
+		subject = inTransaction.importObject(source.subject)
+	}
+
+	override fun id(): String { return _id }
+}

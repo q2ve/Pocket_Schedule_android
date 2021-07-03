@@ -8,17 +8,17 @@ import io.realm.RealmList
 import io.realm.RealmObject
 
 interface UniqueImportSource {
-	val id: String
+	fun id(): String
 }
 
 interface ImportableObject<ImportSource> {
-	val id: String
+	fun id(): String
 	fun setup(source: ImportSource, inTransaction: Realm)
 }
 
 object StorageHelper {
 
-	fun realmInsance(): Realm {
+	fun realmInstance(): Realm {
 		val configuration = RealmConfiguration.Builder()
 			.name(Constants.realmDatabaseFileName)
 			.allowQueriesOnUiThread(true)   //Why are you booing me?
@@ -37,14 +37,11 @@ object StorageHelper {
 	      Object: ImportableObject<ImportSource>,
 	      ImportSource: UniqueImportSource
 	{
-		val realm = realmInsance()
+		val realm = realmInstance()
 		realm.executeTransactionAsync(
 			{r: Realm ->
 				val imported = r.importObject<Object, ImportSource>(from)
-				val fetched = r.where(Object::class.java)
-					.equalTo("id", imported.id)
-					.findFirst()
-				completion(fetched)
+				completion(r.copyFromRealm(imported))
 			},
 			{
 				realm.close()
@@ -65,11 +62,11 @@ object StorageHelper {
 	      Object: ImportableObject<ImportSource>,
 	      ImportSource: UniqueImportSource
 	{
-		val realm = realmInsance()
+		val realm = realmInstance()
 		realm.executeTransactionAsync(
 			{r: Realm ->
 				val importedIds = from.map { sourceObject ->
-					r.importObject<Object, ImportSource>(sourceObject).id
+					r.importObject<Object, ImportSource>(sourceObject).id()
 				}
 				val fetched =  importedIds.flatMap {
 					r.where(Object::class.java)
@@ -97,7 +94,7 @@ inline fun <reified Object, ImportSource> Realm.importObject(from: ImportSource 
 		      ImportSource: UniqueImportSource
 {
 	val found = this.where(Object::class.java)
-		.equalTo("id", from.id)
+		.equalTo("id", from.id())
 		.findFirst()
 	if( found != null ) {
 		found.setup(from, this)

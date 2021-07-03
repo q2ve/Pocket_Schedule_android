@@ -1,5 +1,7 @@
 package com.q2ve.suai.helpers.retrofit.objects
 
+import com.q2ve.suai.helpers.realm.UniqueImportSource
+
 /**
  * Created by Denis Shishkin on 28.06.2021.
  * qwq2eq@gmail.com
@@ -18,4 +20,6 @@ data class RetrofitItemDeadline(
 	val curPoints: Int,
 	val markpoint: Int,
 	val reportRequired: Boolean
-)
+): UniqueImportSource {
+	override fun id(): String { return _id }
+}

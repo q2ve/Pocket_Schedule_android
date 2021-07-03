@@ -5,6 +5,10 @@ package com.q2ve.suai.helpers.realm.objects
  * qwq2eq@gmail.com
  */
 
+import com.q2ve.suai.helpers.realm.ImportableObject
+import com.q2ve.suai.helpers.retrofit.objects.RetrofitItemDeadline
+import com.q2ve.suai.helpers.retrofit.objects.RetrofitItemSubject
+import io.realm.Realm
 import io.realm.RealmList
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
@@ -14,4 +18,12 @@ open class RealmSubjectObject (
 	var _id: String = "",
 	var name: String = "",
 	var deadlines: RealmList<RealmDeadlineObject>? = RealmList()
-): RealmObject()
+): RealmObject(), ImportableObject<RetrofitItemSubject> {
+	override fun id(): String { return _id }
+	override fun setup(source: RetrofitItemSubject, inTransaction: Realm) {
+		_id = source._id
+		name = source.name
+
+	}
+
+}
