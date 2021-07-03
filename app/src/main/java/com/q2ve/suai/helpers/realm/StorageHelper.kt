@@ -4,6 +4,7 @@ import android.util.Log
 import com.q2ve.suai.Constants
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import io.realm.RealmList
 import io.realm.RealmObject
 
 interface UniqueImportSource {
@@ -54,6 +55,39 @@ object StorageHelper {
 			}
 		)
 	}
+
+	inline fun <reified Object, ImportSource> storeObjects(
+		from: List<ImportSource>,
+		crossinline completion: (result: List<Object>) -> Unit,
+		crossinline errorHandler: (Throwable) -> Unit
+	)
+	where Object : RealmObject,
+	      Object: ImportableObject<ImportSource>,
+	      ImportSource: UniqueImportSource
+	{
+		val realm = realmInsance()
+		realm.executeTransactionAsync(
+			{r: Realm ->
+				val importedIds = from.map { sourceObject ->
+					r.importObject<Object, ImportSource>(sourceObject).id
+				}
+				val fetched =  importedIds.flatMap {
+					r.where(Object::class.java)
+						.equalTo("id", it)
+						.findAll()
+				}
+
+				completion(fetched)
+			},
+			{
+				realm.close()
+			},
+			{
+				realm.close()
+				errorHandler(it)
+			}
+		)
+	}
 }
 
 
@@ -73,4 +107,16 @@ inline fun <reified Object, ImportSource> Realm.importObject(from: ImportSource 
 		created.setup(from,this)
 		return created
 	}
+}
+
+inline fun <reified Object, ImportSource> Realm.importObjects(from: List<ImportSource> ): RealmList<Object>
+		where Object : RealmObject,
+		      Object: ImportableObject<ImportSource>,
+		      ImportSource: UniqueImportSource
+{
+	val list = RealmList<Object>()
+	from.forEach { sourceObject ->
+		list.add(this.importObject(sourceObject))
+	}
+	return list
 }
