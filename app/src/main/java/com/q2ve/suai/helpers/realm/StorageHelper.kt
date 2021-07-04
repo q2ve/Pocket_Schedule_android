@@ -65,16 +65,11 @@ object StorageHelper {
 		val realm = realmInstance()
 		realm.executeTransactionAsync(
 			{r: Realm ->
-				val importedIds = from.map { sourceObject ->
-					r.importObject<Object, ImportSource>(sourceObject).id()
+				val imported = from.map { sourceObject ->
+					r.importObject<Object, ImportSource>(sourceObject)
 				}
-				val fetched =  importedIds.flatMap {
-					r.where(Object::class.java)
-						.equalTo("id", it)
-						.findAll()
-				}
-
-				completion(fetched)
+				val deatached = r.copyFromRealm(imported)
+				completion(deatached)
 			},
 			{
 				realm.close()
