@@ -1,6 +1,7 @@
 package com.q2ve.suai.ui.bottomMenu.selector
 
 import android.util.Log
+import com.q2ve.suai.R
 import com.q2ve.suai.helpers.FragmentReplacer
 import com.q2ve.suai.helpers.contentGetter.ContentGetter
 import com.q2ve.suai.helpers.contentGetter.ContentGetterInterface
@@ -16,14 +17,16 @@ interface RecyclerPresenterInterface {
 	fun recyclerCallback(realmObject: RealmIdNameInterface)
 }
 
+//TODO(Saving objects to DB after selection. Needs to offline functionality)
 class RecyclerPresenter(
 	private val parent: RecyclerPresenterInterface,
 	private val recyclerFrame: Int,
-	private val contentType: IndexerItemType,
-	private val universityID: Int
-): RecyclerFragmentInterface, ContentGetterInterface {
+	private val universityID: Int,
+	private var contentType: IndexerItemType = IndexerItemType.Groups
+): RecyclerFragmentInterface, ContentGetterInterface, RecyclerContentTypeButtonsInterface {
 
 	private lateinit var recycler: RecyclerSelectorFragment
+	private var isRecyclerPlaced = false
 	private var searchFlag = false
 	private var itemAddingFlag = false
 	private var offset = 0
@@ -31,6 +34,10 @@ class RecyclerPresenter(
 	private var query = ""
 
 	init {
+		if (contentType != IndexerItemType.Universities) {
+			val buttons = RecyclerContentTypeButtons(this)
+			FragmentReplacer.addFragment(R.id.bottom_menu_buttons_container, buttons)
+		}
 		getItems()
 	}
 
@@ -49,9 +56,14 @@ class RecyclerPresenter(
 		}
 	}
 
-	private fun putRecycler(items: List<RealmIdNameInterface>) {
+	private fun placeRecycler(items: List<RealmIdNameInterface>) {
 		recycler = RecyclerSelectorFragment(this, items)
 		FragmentReplacer.replaceFragment(recyclerFrame, recycler)
+		isRecyclerPlaced = true
+	}
+
+	private fun removeRecycler() {
+		FragmentReplacer.removeFragment(recycler)
 	}
 
 	override fun onRecyclerItemClicked(realmObject: RealmIdNameInterface) {
@@ -86,7 +98,7 @@ class RecyclerPresenter(
 				if (searchFlag) {
 					recycler.updateData(objects as List<RealmIdNameInterface>)
 				} else {
-					putRecycler(objects as List<RealmIdNameInterface>)
+					placeRecycler(objects as List<RealmIdNameInterface>)
 					searchFlag = true
 				}
 			}
@@ -99,5 +111,20 @@ class RecyclerPresenter(
 
 	private fun dropOffset() {
 		offset = 0
+	}
+
+	private fun dropFlags() {
+		searchFlag = false
+		itemAddingFlag = false
+	}
+
+	override fun contentTypeButtonsCallback(newContentType: IndexerItemType) {
+		if (isRecyclerPlaced) {
+			contentType = newContentType
+			removeRecycler()
+			dropOffset()
+			dropFlags()
+			getItems()
+		}
 	}
 }

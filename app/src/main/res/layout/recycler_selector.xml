@@ -67,7 +67,7 @@
 		android:layout_marginTop="10dp"
 		android:layout_below="@id/recycler_view_selector_search_box"
 		android:layout_above="@id/recycler_uploading_progressbar"
-		tools:listitem="@layout/recycler_view_item"
+		tools:listitem="@layout/recycler_item"
 		android:fadingEdge="vertical"
 		android:fadingEdgeLength="30dp"
 		android:requiresFadingEdge="vertical"

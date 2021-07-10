@@ -104,7 +104,7 @@ class LoginFirstPresenter(private val parent: LoginNavigationInterface):
     }
 
     override fun uploadMoreItems() {
-        TODO("Not yet implemented")
+
     }
 
     override fun bottomMenuClosed() {

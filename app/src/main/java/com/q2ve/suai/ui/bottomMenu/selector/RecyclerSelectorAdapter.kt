@@ -16,14 +16,26 @@ class RecyclerSelectorAdapter(private val objects: List<RealmIdNameInterface>, p
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerItemHolder {
-		val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recycler_view_item, parent, false)
+		val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recycler_item, parent, false)
 		return RecyclerItemHolder(itemView)
 	}
 
 	override fun onBindViewHolder(holder: RecyclerItemHolder, position: Int) {
 		//Log.d("Recycler objects", objects.toString())
+		val input = data[position].getTheName()
+		var text = input
 
-		holder.name.text = data[position].getTheName()
+		//TODO(Remove string cutting after transition on api v2)
+		if (input.contains("—")) {
+			(input).forEachIndexed { pos, it ->
+				if (it.toString() == "—") {
+					text = input.dropLast(input.length - (pos - 1))
+				}
+			}
+		}
+
+		holder.name.text = text
+				//holder.name.text = data[position].getTheName()
 
 		holder.itemView.setOnClickListener {
 			//Log.d("Recycler item selected", holder.name.text.toString())

@@ -74,7 +74,7 @@ class ScheduleFragment (private val presenter: SchedulePresenterInterface): Frag
             if ((it as TextView).text == weekday.getShortWeekdayName()) {
                 it.core_schedule_weekday.setTextColor(weekTextColor)
                 it.core_schedule_weekday.background.setTint(weekBackgroundColor)
-                Handler().postDelayed(Runnable { view!!.core_schedule_weekdays_scroll.smoothScrollTo(it.left - 240, 0) }, 200)
+                Handler().postDelayed(Runnable { view!!.core_schedule_weekdays_scroll.smoothScrollTo(it.left - 240, 0) }, 150)
             }
         }
         selectedDay = weekday
@@ -97,7 +97,16 @@ class ScheduleFragment (private val presenter: SchedulePresenterInterface): Frag
     }
 
     override fun changeTitle(title: String) {
-        view!!.core_schedule_title.text = title
+        //TODO(Remove string cutting after transition on api v2)
+        if (title.contains("—")) {
+            (title).forEachIndexed { pos, it ->
+                if (it.toString() == "—") {
+                    view!!.core_schedule_title.text = title.dropLast(title.length - (pos - 1))
+                }
+            }
+        } else {
+            view!!.core_schedule_title.text = title
+        }
     }
 
     private fun setWeekParity(view: View, isOdd: Boolean) {
@@ -155,7 +164,7 @@ class ScheduleFragment (private val presenter: SchedulePresenterInterface): Frag
             selectedWeekdays += weekdayView
             weekdayView.setOnClickListener {
                 this.onWeekdayClicked(weekday)
-                Handler().postDelayed(Runnable { view.core_schedule_weekdays_scroll.smoothScrollTo(it.left - 240, 0) }, 200)
+                Handler().postDelayed(Runnable { view.core_schedule_weekdays_scroll.smoothScrollTo(it.left - 240, 0) }, 150)
                 it.core_schedule_weekday.setTextColor(weekTextColor)
                 it.core_schedule_weekday.background.setTint(weekBackgroundColor)
             }

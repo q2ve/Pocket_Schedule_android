@@ -25,15 +25,20 @@
 
         <TextView
             android:id="@+id/core_schedule_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            app:layout_constraintWidth_default="spread"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginHorizontal="12dp"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:lines="1"
             android:text="@string/schedule"
-            android:textSize="19sp"
             android:textColor="@color/colorBlack"
-            android:textStyle="bold"/>
+            android:textSize="19sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/core_schedule_user_login"
+            app:layout_constraintStart_toEndOf="@+id/core_schedule_group_filter"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/core_schedule_user_login"

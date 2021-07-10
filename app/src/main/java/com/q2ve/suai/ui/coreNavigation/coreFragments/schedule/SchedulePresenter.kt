@@ -5,7 +5,6 @@ import com.q2ve.suai.R
 import com.q2ve.suai.helpers.FragmentReplacer
 import com.q2ve.suai.helpers.contentGetter.ContentGetter
 import com.q2ve.suai.helpers.contentGetter.ContentGetterInterface
-import com.q2ve.suai.helpers.realm.objects.IndexerItemType
 import com.q2ve.suai.helpers.realm.objects.RealmIdNameInterface
 import com.q2ve.suai.helpers.realm.objects.RealmLessonObject
 import com.q2ve.suai.ui.bottomMenu.BottomMenuFragment
@@ -38,7 +37,7 @@ class SchedulePresenter(private val coreNavigation: CoreNavigationInterface): Sc
 	override fun filterButtonPressed() {
 		bottomMenuView.presenter = bottomMenuPresenter
 		FragmentReplacer.addFragment(R.id.core_navigation_bottom_menu_frame, bottomMenuView)
-		RecyclerPresenter(this, R.id.bottom_menu_recycler_container, IndexerItemType.Groups, 1)
+		RecyclerPresenter(this, R.id.bottom_menu_recycler_container, 1)
 	}
 
 	override fun recyclerCallback(realmObject: RealmIdNameInterface) {

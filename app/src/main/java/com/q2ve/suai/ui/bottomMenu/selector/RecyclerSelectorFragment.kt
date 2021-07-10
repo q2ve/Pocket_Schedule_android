@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.q2ve.suai.R
 import com.q2ve.suai.helpers.realm.objects.RealmIdNameInterface
-import kotlinx.android.synthetic.main.recycler_view_selector.view.*
+import kotlinx.android.synthetic.main.recycler_selector.view.*
 
 interface RecyclerFragmentInterface {
 	fun onRecyclerItemClicked(realmObject: RealmIdNameInterface)
@@ -25,13 +25,14 @@ class RecyclerSelectorFragment(private val parent: RecyclerFragmentInterface, pr
 	private val recyclerAdapter = RecyclerSelectorAdapter(inputData, parent)
 	private var allowAddingItems = true
 	private var previousItemCount = 20
+	private var isGroupsSelected = true
 
 		override fun onCreateView(
 		inflater: LayoutInflater,
 		container: ViewGroup?,
 		savedInstanceState: Bundle?
 	): View? {
-		val rootView = inflater.inflate(R.layout.recycler_view_selector, container, false)
+		val rootView = inflater.inflate(R.layout.recycler_selector, container, false)
 
 		//Initializing RecyclerView
 		initRecycler(inputData, rootView)
