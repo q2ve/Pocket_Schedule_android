@@ -114,7 +114,7 @@ class SchedulePresenter(private val coreNavigation: CoreNavigationInterface): Sc
 				else { professors += ", $professorName" }
 			}
 
-			var tags = emptyList<String>()
+			val tags = emptyList<String>().toMutableList()
 			tags += it.rooms
 			tags += lessonType(it.type!!)
 			if (it.groups!!.size != 1) { tags += pluralizeGroups(it.groups!!.size) }

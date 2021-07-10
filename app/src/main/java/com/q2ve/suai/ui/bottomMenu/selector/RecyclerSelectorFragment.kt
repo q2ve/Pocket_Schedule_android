@@ -35,7 +35,7 @@ class RecyclerSelectorFragment(private val parent: RecyclerFragmentInterface, pr
 		val rootView = inflater.inflate(R.layout.recycler_selector, container, false)
 
 		//Initializing RecyclerView
-		initRecycler(inputData, rootView)
+		initRecycler(rootView)
 
 		//Initializing search field, adding change listener
 		val searchField = rootView.recycler_view_selector_search_field
@@ -58,7 +58,7 @@ class RecyclerSelectorFragment(private val parent: RecyclerFragmentInterface, pr
 		return rootView
 	}
 
-	private fun initRecycler (data: List<RealmIdNameInterface>, currentView: View) {
+	private fun initRecycler (currentView: View) {
 		val recyclerView: RecyclerView = currentView.recycler_recyclerview
 		val layoutManager = LinearLayoutManager(activity)
 		recyclerView.layoutManager = layoutManager

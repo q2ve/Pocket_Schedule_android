@@ -33,13 +33,13 @@ class RecyclerContentTypeButtons(private val parent: RecyclerContentTypeButtonsI
 		val professorsButton: TextView = rootView.recycler_view_selector_professors_button
 
 		fun dyeTheButton(button: TextView) {
-			button.setTextColor(resources.getColor(R.color.colorBlue))
-			button.background.setTint(resources.getColor(R.color.colorBlueLight))
+			button.setTextColor(resources.getColor(R.color.colorBlue, activity!!.theme))
+			button.background.setTint(resources.getColor(R.color.colorBlueLight, activity!!.theme))
 		}
 
 		fun undyeTheButton(button: TextView) {
-			button.setTextColor(resources.getColor(R.color.colorLightGray1))
-			button.background.setTint(resources.getColor(R.color.colorPlaqueBackground))
+			button.setTextColor(resources.getColor(R.color.colorLightGray1, activity!!.theme))
+			button.background.setTint(resources.getColor(R.color.colorPlaqueBackground, activity!!.theme))
 		}
 
 		fun undyeAllButtons() {

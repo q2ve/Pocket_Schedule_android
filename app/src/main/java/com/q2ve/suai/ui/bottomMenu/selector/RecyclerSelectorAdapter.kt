@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.q2ve.suai.R
 import com.q2ve.suai.helpers.realm.objects.RealmIdNameInterface
 
-class RecyclerSelectorAdapter(private val objects: List<RealmIdNameInterface>, private val parent: RecyclerFragmentInterface): RecyclerView.Adapter<RecyclerSelectorAdapter.RecyclerItemHolder>() {
+class RecyclerSelectorAdapter(objects: List<RealmIdNameInterface>, private val parent: RecyclerFragmentInterface): RecyclerView.Adapter<RecyclerSelectorAdapter.RecyclerItemHolder>() {
 	var data = objects
 
 	class RecyclerItemHolder(item: View): RecyclerView.ViewHolder(item) {
