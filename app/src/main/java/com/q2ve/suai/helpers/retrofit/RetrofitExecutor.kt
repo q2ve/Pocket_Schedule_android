@@ -44,9 +44,15 @@ class RetrofitExecutor (val parent: RetrofitInterface) {
 		})
 	}
 
-	fun getGroups() {
+	fun getGroups(offset: Int, limit: Int, universityID: Int, query: String = "") {
 		val request = setupRequest()
-		val call = request.getGroups(0, 8, 1)
+		val call = request.getGroups(offset, limit, universityID, query)
+		sendCall(call)
+	}
+
+	fun getProfessors(offset: Int, limit: Int, universityID: Int, query: String = "") {
+		val request = setupRequest()
+		val call = request.getProfessors(offset, limit, universityID, query)
 		sendCall(call)
 	}
 

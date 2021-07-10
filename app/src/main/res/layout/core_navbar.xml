@@ -5,8 +5,8 @@
 	android:id="@+id/navigation_bar"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@drawable/navbar_rounded_corners"
-	android:orientation="horizontal">
+	android:orientation="horizontal"
+	android:elevation="0dp">
 
 	<ImageButton
 		android:id="@+id/core_navbar_news_button"

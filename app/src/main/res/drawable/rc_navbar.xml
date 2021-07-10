@@ -5,8 +5,5 @@
         android:color="@color/colorPlaqueBackground" />
     <corners
         android:radius="28dp"/>
-    <stroke
-        android:color="#03000000"
-        android:width="3dp"/>
 
 </shape>

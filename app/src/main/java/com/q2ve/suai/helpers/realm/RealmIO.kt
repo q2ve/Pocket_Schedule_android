@@ -16,7 +16,7 @@ import kotlin.reflect.KMutableProperty
 
 class RealmIO {
 	private val realmName: String = "SUAI_database"
-	private val config = RealmConfiguration.Builder()
+	val config: RealmConfiguration = RealmConfiguration.Builder()
 		.name(realmName)
 		.allowQueriesOnUiThread(true)   //Why are you booing me?
 		.allowWritesOnUiThread(true)    //We can read from Realm synchronously, cause it fast!
@@ -42,7 +42,7 @@ class RealmIO {
 	}
 
 	//This function is needed to index and add items we got from the server to the local database
-	fun <T: RealmObject> insertOrUpdateWithIndexer(
+	inline fun <reified T: RealmObject> insertOrUpdateWithIndexer(
 		parent: RealmInterface,
 		type: IndexerItemType,
 		inputObjects: List<T>)
@@ -52,8 +52,10 @@ class RealmIO {
 		var output: List<T> = emptyList()
 		realm.executeTransactionAsync(
 			{ r: Realm ->
-				var count = r.where(IndexerItem::class.java).equalTo("name", name).findAll().size
+				r.delete(IndexerItem::class.java)
+				r.delete(T::class.java)
 				inputObjects.forEach { it ->
+					var count = r.where(IndexerItem::class.java).equalTo("name", name).findAll().size
 					//Indexer items needs to get the objects from DB
 					// in the correct order they came from the server
 					val indexerItem = IndexerItem()

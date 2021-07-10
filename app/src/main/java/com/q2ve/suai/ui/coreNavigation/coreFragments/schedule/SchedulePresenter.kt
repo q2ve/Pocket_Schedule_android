@@ -1,31 +1,90 @@
 package com.q2ve.suai.ui.coreNavigation.coreFragments.schedule
 
+import android.util.Log
+import com.q2ve.suai.R
+import com.q2ve.suai.helpers.FragmentReplacer
 import com.q2ve.suai.helpers.contentGetter.ContentGetter
 import com.q2ve.suai.helpers.contentGetter.ContentGetterInterface
+import com.q2ve.suai.helpers.realm.objects.IndexerItemType
+import com.q2ve.suai.helpers.realm.objects.RealmIdNameInterface
 import com.q2ve.suai.helpers.realm.objects.RealmLessonObject
+import com.q2ve.suai.ui.bottomMenu.BottomMenuFragment
+import com.q2ve.suai.ui.bottomMenu.BottomMenuInterface
+import com.q2ve.suai.ui.bottomMenu.BottomMenuPresenter
+import com.q2ve.suai.ui.bottomMenu.selector.RecyclerPresenter
+import com.q2ve.suai.ui.bottomMenu.selector.RecyclerPresenterInterface
+import com.q2ve.suai.ui.coreNavigation.CoreNavigationInterface
+import java.util.*
 
 /**
  * Created by Denis Shishkin on 16.04.2021.
  * qwq2eq@gmail.com
  */
 
-class SchedulePresenter: SchedulePresenterInterface, ContentGetterInterface {
-	lateinit var view: ScheduleViewInterface
-	lateinit var lessons: List<RealmLessonObject>
+//TODO(Exceptions handling)
+//TODO(Add university setter)
+class SchedulePresenter(private val coreNavigation: CoreNavigationInterface): SchedulePresenterInterface, ContentGetterInterface, BottomMenuInterface, RecyclerPresenterInterface {
+	lateinit var fragment: ScheduleFragmentInterface
 
-	init {
-		test("1e0e30726e7f72a88c70ec82e7b5d97844cf3763c068d37a537a11d3a02b93e3")
+	private val bottomMenuView = BottomMenuFragment("Выбор хуйни")
+	private val bottomMenuPresenter = BottomMenuPresenter(bottomMenuView, this)
+
+	private lateinit var lessons: List<RealmLessonObject>
+	private var filterIsWeekOdd = true
+	private var filterWeekday = ScheduleWeekday.Mon
+	private var isBottomMenuOpened = false
+
+
+	override fun filterButtonPressed() {
+		bottomMenuView.presenter = bottomMenuPresenter
+		FragmentReplacer.addFragment(R.id.core_navigation_bottom_menu_frame, bottomMenuView)
+		RecyclerPresenter(this, R.id.bottom_menu_recycler_container, IndexerItemType.Groups, 1)
 	}
 
-	override fun test(id: String) {
-		ContentGetter(this).getLessons(id)
+	override fun recyclerCallback(realmObject: RealmIdNameInterface) {
+		bottomMenuView.exitAnimation()
+		Log.d("recyclerCallback", realmObject.toString())
+		fragment.initialSchedulePlacement(realmObject.getTheId())
+		fragment.changeTitle(realmObject.getTheName())
 	}
 
-	fun updateLessons(objects: List<RealmLessonObject>) {
-		lessons = objects
+	override fun bottomMenuClosed() {
+		isBottomMenuOpened = false
 	}
 
-	fun convertRealmLessonObjects(objects: List<RealmLessonObject>): Array<ScheduleLessonData> {
+	override fun getLessons(id: String, weekday: ScheduleWeekday, isWeekOdd: Boolean, uploadLessons: Boolean) {
+		if (uploadLessons) {
+			ContentGetter(this).getLessons(id)
+			filterIsWeekOdd = isWeekOdd
+			filterWeekday = weekday
+		}
+		else {
+			replaceScheduleDay(weekday, isWeekOdd)
+		}
+	}
+
+	private fun replaceScheduleDay(weekday: ScheduleWeekday, isWeekOdd: Boolean) {
+		val sortedList = sortRealmLessonObjects(lessons, weekday, isWeekOdd)
+		fragment.replaceScheduleDay(convertRealmLessonObjects(sortedList))
+	}
+
+	private fun sortRealmLessonObjects(objects: List<RealmLessonObject>, weekday: ScheduleWeekday, isWeekOdd: Boolean): List<RealmLessonObject> {
+		val dayOfTheWeek = weekday.toString().toLowerCase(Locale.ROOT)
+		val weekParity = when (isWeekOdd) {
+			true -> { "odd" }
+			false -> { "even" }
+		}
+		var output: Array<RealmLessonObject> = emptyArray()
+		objects.forEach { item ->
+			if (item.day == dayOfTheWeek && item.week == weekParity) {
+				output += item
+			}
+		}
+		output.sortBy { it.lessonNum }
+		return output.toList()
+	}
+
+	private fun convertRealmLessonObjects(objects: List<RealmLessonObject>): Array<ScheduleLessonData> {
 		fun lessonType(input: String): String {
 			return when (input) {
 				"lecture" -> { "Лекция" }
@@ -60,14 +119,17 @@ class SchedulePresenter: SchedulePresenterInterface, ContentGetterInterface {
 			tags += it.rooms
 			tags += lessonType(it.type!!)
 			if (it.groups!!.size != 1) { tags += pluralizeGroups(it.groups!!.size) }
+			if (it.startTime == null || it.endTime == null) { tags += "Время не назначено" }
 
 			val startTime = when {
 				(it.startTime!!.length < 5) -> { "0" + it.startTime!! }
+				(it.startTime == null) -> { "xx:xx" }
 				else -> { it.startTime!! }
 			}
 
 			val endTime = when {
 				(it.endTime!!.length < 5) -> { "0" + it.endTime!! }
+				(it.endTime == null) -> { "xx:xx" }
 				else -> { it.endTime!! }
 			}
 
@@ -91,13 +153,8 @@ class SchedulePresenter: SchedulePresenterInterface, ContentGetterInterface {
 		isError: Boolean,
 		errorMessage: String?
 	) {
-		var output: Array<RealmLessonObject> = emptyArray()
-		(objects!! as List<RealmLessonObject>).forEach { item ->
-			if (item.day == "wed" && item.week == "odd") {
-				output += item
-			}
-			output.sortBy { it.lessonNum }
-			view.replaceScheduleDay(convertRealmLessonObjects(output.toList()))
-		}
+		lessons = objects!! as List<RealmLessonObject>
+
+		replaceScheduleDay(filterWeekday, filterIsWeekOdd)
 	}
 }

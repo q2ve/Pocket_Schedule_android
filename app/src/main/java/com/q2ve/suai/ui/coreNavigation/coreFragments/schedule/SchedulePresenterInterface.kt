@@ -6,5 +6,6 @@ package com.q2ve.suai.ui.coreNavigation.coreFragments.schedule
  */
 
 interface SchedulePresenterInterface {
-	fun test(id: String)
+	fun getLessons(id: String, weekday: ScheduleWeekday, isWeekOdd: Boolean, uploadLessons: Boolean = false)
+	fun filterButtonPressed ()
 }

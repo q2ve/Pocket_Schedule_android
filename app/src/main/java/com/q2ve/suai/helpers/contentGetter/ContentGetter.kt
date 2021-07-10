@@ -19,9 +19,14 @@ import com.q2ve.suai.helpers.retrofit.objects.RetrofitItemUniversity
 class ContentGetter(private val parent: ContentGetterInterface): RetrofitInterface, RealmInterface {
 	private lateinit var contentType: ContentType
 
-	fun getGroups() {
+	fun getGroups(offset: Int, limit: Int, universityID: Int, query: String = "") {
 		contentType = ContentType.Groups
-		RetrofitExecutor(this).getGroups()
+		RetrofitExecutor(this).getGroups(offset, limit, universityID, query)
+	}
+
+	fun getProfessors(offset: Int, limit: Int, universityID: Int, query: String = "") {
+		contentType = ContentType.Professors
+		RetrofitExecutor(this).getProfessors(offset, limit, universityID, query)
 	}
 
 	fun getUniversities() {

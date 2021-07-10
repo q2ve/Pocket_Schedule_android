@@ -19,6 +19,14 @@ interface ApiRequests {
 		@Query("q") q: String = ""
 	): Call<RetrofitResponseObject<RetrofitItemScheduleUser>>
 
+	@GET("objects/professors?")
+	fun getProfessors (
+		@Query("offset") offset: Int,
+		@Query("limit") limit: Int,
+		@Query("universityId") universityId: Int,
+		@Query("q") q: String = ""
+	): Call<RetrofitResponseObject<RetrofitItemScheduleUser>>
+
 	@GET("objects/universities?")
 	fun getUniversities (
 		@Query("offset") offset: Int,

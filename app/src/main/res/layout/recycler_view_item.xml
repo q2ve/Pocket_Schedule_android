@@ -19,7 +19,7 @@
 			android:layout_marginStart="18dp"
 			android:layout_centerVertical="true"
 			android:textSize="18sp"
-			android:textColor="#000000"/>
+			android:textColor="@color/colorBlack"/>
 
 		<ImageView
 			android:layout_width="wrap_content"
@@ -38,7 +38,7 @@
 	<View
 		android:layout_width="match_parent"
 		android:layout_height="2.5dp"
-		android:background="@drawable/divider_rounded_corners"
+		android:background="@drawable/rc_divider"
 		android:backgroundTint="@color/colorLightGray3"
 		android:layout_marginStart="12dp"
 		android:layout_marginEnd="12dp"/>

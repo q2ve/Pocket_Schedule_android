@@ -12,4 +12,13 @@
     <string name="login_as_verb">Войти</string>
     <string name="error_no_university_selected">Выберите свой вуз</string>
     <string name="schedule">Расписание</string>
+    <string name="today">Сегодня</string>
+    <string name="even">Чётная</string>
+    <string name="odd">Нечётная</string>
+    <string name="you_can_sleep_in_peace">Можно спать спокойно!</string>
+    <string name="comma_there_is_no_lessons">, пар нет!</string>
+    <string name="there_is_no_lessons">пар нет!</string>
+    <string name="search_with_ellipsis">Поиск…</string>
+
+
 </resources>

@@ -11,7 +11,11 @@
     <color name="colorRedError">#EA3323</color>
     <color name="colorBlack">#121212</color>
     <color name="colorBlue">#4988F4</color>
+    <color name="colorBlueLight">#DDE9FF</color>
     <color name="colorAqua">#60BCFF</color>
+    <color name="colorRedMainLight">#F9DFE0</color>
+    <color name="colorDeadlineRed">#EB4D3D</color>
+    <color name="colorUNNAMED">#CCCCCE</color>
 
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#A5A5A5</color>

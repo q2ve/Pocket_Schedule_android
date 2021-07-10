@@ -21,7 +21,7 @@
 		android:layout_marginTop="70dp"
 		android:orientation="vertical"
 		android:translationY="1000dp"
-		android:background="@drawable/bottom_menu_rounded_corners">
+		android:background="@drawable/rc_bottom_menu">
 
 		<RelativeLayout
 			android:layout_width="match_parent"

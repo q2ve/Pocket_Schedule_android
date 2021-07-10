@@ -1,17 +1,18 @@
 package com.q2ve.suai.ui.loginNavigation.loginFragments
 
 import android.app.Activity
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.q2ve.suai.R
 import com.q2ve.suai.helpers.FragmentReplacer
 import com.q2ve.suai.helpers.contentGetter.ContentGetter
 import com.q2ve.suai.helpers.contentGetter.ContentGetterInterface
 import com.q2ve.suai.helpers.realm.objects.RealmIdNameInterface
+import com.q2ve.suai.ui.bottomMenu.BottomMenuFragment
 import com.q2ve.suai.ui.bottomMenu.BottomMenuInterface
 import com.q2ve.suai.ui.bottomMenu.BottomMenuPresenter
-import com.q2ve.suai.ui.bottomMenu.BottomMenuView
-import com.q2ve.suai.ui.bottomMenu.selector.RecyclerInterface
-import com.q2ve.suai.ui.bottomMenu.selector.RecyclerSelectorView
+import com.q2ve.suai.ui.bottomMenu.selector.RecyclerFragmentInterface
+import com.q2ve.suai.ui.bottomMenu.selector.RecyclerSelectorFragment
 import com.q2ve.suai.ui.loginNavigation.LoginNavigationInterface
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.auth.VKScope
@@ -27,12 +28,12 @@ class LoginFirstPresenter(private val parent: LoginNavigationInterface):
     Fragment(),
     LoginScreenFirstPresenterInterface,
     ContentGetterInterface,
-    RecyclerInterface,
+    RecyclerFragmentInterface,
     BottomMenuInterface
 {
 
     lateinit var view: LoginScreenFirstViewInterface
-    private val bottomMenuView = BottomMenuView("Выбор хуйни")
+    private val bottomMenuView = BottomMenuFragment("Выбор хуйни")
     private val bottomMenuPresenter = BottomMenuPresenter(bottomMenuView, this)
     private var universityList: List<RealmIdNameInterface>? = null
     private var isBottomMenuOpened = false
@@ -46,7 +47,7 @@ class LoginFirstPresenter(private val parent: LoginNavigationInterface):
     }
 
     private fun placeRecycler () {
-        val recycler = RecyclerSelectorView(this, universityList!!)
+        val recycler = RecyclerSelectorFragment(this, universityList!!)
         FragmentReplacer.addFragment(R.id.bottom_menu_recycler_container, recycler)
     }
 
@@ -96,6 +97,14 @@ class LoginFirstPresenter(private val parent: LoginNavigationInterface):
     override fun onRecyclerItemClicked(realmObject: RealmIdNameInterface) {
         view.bindNewUniversityName(realmObject.getTheName())
         bottomMenuView.exitAnimation()
+    }
+
+    override fun searchItems(name: String) {
+        Log.d("Search this", name)
+    }
+
+    override fun uploadMoreItems() {
+        TODO("Not yet implemented")
     }
 
     override fun bottomMenuClosed() {

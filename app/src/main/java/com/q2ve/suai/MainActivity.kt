@@ -2,7 +2,6 @@ package com.q2ve.suai
 
 import android.content.Intent
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -26,10 +25,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //AppCenter analytics
         AppCenter.start(
             application, Constants.appCenterId,
             Analytics::class.java, Crashes::class.java
         )
+        //AppCenter analytics
 
         //Setting link to activity in fragment replacer
         FragmentReplacer.activityLink = this
@@ -56,7 +57,9 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
         //Adding root navigation fragment on the screen
 
+        //AppCenter analytics
         Analytics.trackEvent("started")
+        //AppCenter analytics
     }
 
 

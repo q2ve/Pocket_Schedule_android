@@ -5,7 +5,8 @@ package com.q2ve.suai.ui.coreNavigation.coreFragments.schedule
  * qwq2eq@gmail.com
  */
 
-interface ScheduleViewInterface {
-	fun changeTitle (title: String)
+interface ScheduleFragmentInterface {
 	fun replaceScheduleDay(lessons: Array<ScheduleLessonData>)
+	fun initialSchedulePlacement(selectedScheduleUser: String)
+	fun changeTitle(title: String)
 }

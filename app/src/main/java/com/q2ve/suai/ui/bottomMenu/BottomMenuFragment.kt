@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.bottom_menu_container.view.bottom_menu_con
 import kotlinx.android.synthetic.main.bottom_menu_container_v2.view.*
 
 
-class BottomMenuView(private val title: String): Fragment() {
+class BottomMenuFragment(private val title: String): Fragment() {
     lateinit var presenter: BottomMenuPresenterInterface
 
     override fun onCreateView(

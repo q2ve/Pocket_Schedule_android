@@ -18,8 +18,8 @@ import com.q2ve.suai.ui.coreNavigation.coreFragments.deadlines.DeadlinesPresente
 import com.q2ve.suai.ui.coreNavigation.coreFragments.deadlines.DeadlinesView
 import com.q2ve.suai.ui.coreNavigation.coreFragments.news.NewsPresenter
 import com.q2ve.suai.ui.coreNavigation.coreFragments.news.NewsView
+import com.q2ve.suai.ui.coreNavigation.coreFragments.schedule.ScheduleFragment
 import com.q2ve.suai.ui.coreNavigation.coreFragments.schedule.SchedulePresenter
-import com.q2ve.suai.ui.coreNavigation.coreFragments.schedule.ScheduleView
 import com.q2ve.suai.ui.coreNavigation.settings.SettingsPresenter
 import com.q2ve.suai.ui.coreNavigation.settings.SettingsView
 import kotlinx.android.synthetic.main.core_navigation.view.*
@@ -29,7 +29,7 @@ class CoreNavigation(private val rootNavigation: RootNavigationInterface): Fragm
     private var currentScreen = -1
     private lateinit var navbar: CoreNavbar
     private val newsPresenter = NewsPresenter()
-    private val schedulePresenter = SchedulePresenter()
+    private val schedulePresenter = SchedulePresenter(this)
     private val deadlinesPresenter = DeadlinesPresenter()
     private val settingsPresenter = SettingsPresenter()
 
@@ -97,8 +97,8 @@ class CoreNavigation(private val rootNavigation: RootNavigationInterface): Fragm
 
     override fun goToSchedule() {
         if (currentScreen != 1) {
-            val scheduleView = ScheduleView(schedulePresenter)
-            schedulePresenter.view = scheduleView
+            val scheduleView = ScheduleFragment(schedulePresenter)
+            schedulePresenter.fragment = scheduleView
             replaceFragment(scheduleView, animationDirection(1))
             currentScreen = 1
             navbar.scheduleSelected()

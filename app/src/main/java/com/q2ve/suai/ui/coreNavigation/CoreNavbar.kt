@@ -41,15 +41,9 @@ class CoreNavbar(private val parent: CoreNavigationInterface): Fragment() {
 
 		deselectAllButtons(rootView)
 		when (parent.getCurrentScreen()) {
-			0 -> {
-				newsSelected(rootView)
-			}
-			1 -> {
-				scheduleSelected(rootView)
-			}
-			2 -> {
-				deadlinesSelected(rootView)
-			}
+			0 -> { newsSelected(rootView) }
+			1 -> { scheduleSelected(rootView) }
+			2 -> { deadlinesSelected(rootView) }
 		}
 
 		return rootView
